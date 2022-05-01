@@ -1,0 +1,57 @@
+{%extends 'layout.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    {%block top%}
+
+    <title>Display</title>
+    {%endblock%}
+</head>
+
+<body>
+    {%block content%}
+
+    {%for i in res%}
+    {%if i[1] !="admin@lolib.com" %}
+    <div class="container h-100">
+        <div class="col-9 mx-auto">
+            <div class="card h-100 border-primary justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
+                    <h5 class="card-title">{{i[3]}}</h5>
+                    <p class="card-text">ID: {{i[0]}}</p>
+                    <p class="card-text">Email: {{i[1]}}</p>
+                    <p class="card-text">password: {{i[2]}}</p>
+                    <p class="card-text">City: {{i[4]}}</p>
+                    <p class="card-text">age: {{i[5]}}</p>
+                    <a href="/helper/delcustomer/{{i[0]}}" button type="button"
+                        class="btn btn-warning">DELETE</button></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+        <br>
+        <br>
+        {%endif%}
+        <br>
+        {%endfor%}
+        <!-- flash messages -->
+        {%with messages = get_flashed_messages()%}
+        {%if messages%}
+        {%for msg in messages%}
+        <p>
+        <h2>{{msg}}</h2>
+        </p>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
+        <!-- fash messages end -->
+        {%endblock%}
+</body>
+
+</html>

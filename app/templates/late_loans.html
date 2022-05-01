@@ -1,0 +1,54 @@
+{%extends 'layout.html'%}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {%block top%}
+    <title>Display</title>
+    {%endblock%}
+</head>
+
+<body>
+    {%block content%}
+
+    {%for i in context.all_loans%}
+    {%if i[3] =='Not Yet'%}
+    {%if context.late != 'None'%}
+    {{context.late}}
+    <div class=" row-cols-1 row-cols-md-3 g-4"></div>
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="https://picsum.photos/200/30{{i[1]}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">customer ID {{i[0]}}</h5>
+                <p class="card-text">Book ID {{i[1]}}</p>
+                <p class="card-text">{{i[2]}}</p>
+                <p class="card-text">{{i[3]}}</p>
+                <p class="card-text">{{context.late}}</p>
+
+
+            </div>
+        </div>
+
+        {%endif%}
+        {%endif%}
+        {%endfor%}
+        <!-- flash messages -->
+        {%with messages = get_flashed_messages()%}
+        {%if messages%}
+        {%for msg in messages%}
+        <p>
+        <h2>{{msg}}</h2>
+        </p>
+        {%endfor%}
+        {%endif%}
+        {%endwith%}
+        <!-- fash messages end -->
+        {%endblock%}
+</body>
+
+</html>

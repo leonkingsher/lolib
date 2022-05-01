@@ -1,0 +1,32 @@
+{%extends 'layout.html'%}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    {%block top%}
+
+        <style>
+            body {
+              /* The image used */
+              background-image: url('/static/ban2.webp');
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-size: cover;
+        }
+            </style>
+    <title>lolib home page</title>
+    {%endblock%}
+
+    {%block nav_bar%} 
+    {{super()}}
+    {%endblock%}
+    
+</head>
+<body>
+    {%block content%}
+  
+    {%endblock%}
+          
+</body>

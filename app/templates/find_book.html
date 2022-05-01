@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+{%extends "layout.html"%}
+
+<head>
+    {%block top%}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search For a Book</title>
+
+
+
+    {%endblock%}
+</head>
+
+<body>
+    {%block content%}
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="container">
+        <form action="", method="post">
+          <div class="row">
+            <h2 style="text-align:center">search for a book</h2>
+            <input type="search" name="search" placeholder="search by name">
+            <input type="submit" value="search">
+    </form>
+    {%endblock%}
+    <br>
+    <br>
+    <br>
+    <br>
+    {%block content1%}
+    <!-- flash messages -->
+    {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%for msg in messages%}
+    <p>
+    <h2>{{msg}}</h2>
+    </p>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+    <!-- fash messages end -->
+    {%for i in res%}
+    <div class=" row-cols-1 row-cols-md-3 g-4"></div>
+    <div class="col">
+        <div class="card" style="width: 18rem;">
+            <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{i[1]}}</h5>
+                <p class="card-text">Autor: {{i[2]}}</p>
+                <p class="card-text">Year Published: {{i[3]}}</p>
+                <p class="card-text">Type: {{i[4]}}</p>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    {%endfor%}
+    {%endblock%}
+</body>
+
+</html>
