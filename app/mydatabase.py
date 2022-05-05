@@ -138,6 +138,11 @@ class MyDatabase:
         self.execute_query(query=query)
         return self.print_all_data(query=query)
 
+    def get_by_somthing_and(self,wht,tab,frm,lke,frm2,lke2):
+        
+        query = f"SELECT {wht} FROM {tab} WHERE {frm} = '{lke}' and {frm2} = {lke2};"
+        self.execute_query(query=query)
+        return self.print_all_data(query=query)
     def get_by_int(self,wht,tab,frm,lke):
         
         query = f"SELECT {wht} FROM {tab} WHERE '{frm}' = {lke};"

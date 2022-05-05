@@ -35,11 +35,13 @@ def loan(i):
         bookID = str(i).strip("'")
         loandate = date.today()
         returndate ='Not Yet'
-        check_if_taken= dbms.get_by_somthing('bookID',mydatabase.LOANS,'bookID',bookID)
+        check_if_taken= dbms.get_by_somthing_and('bookID',mydatabase.LOANS,'bookID',bookID,'returndate','Not Yet')
+        print(check_if_taken)
         if check_if_taken ==[]:
             dbms.loan(custID,bookID,loandate,returndate)
+            
             print('loan seccess')
-        return redirect(url_for('display.display_books',))
+        return redirect(url_for('display.display_books'))
     except Exception as e:
         print(e)    
 
