@@ -17,6 +17,18 @@
         }
             </style>
     <title>lolib home page</title>
+
+            <!-- flash messages -->
+            {%with messages = get_flashed_messages()%}
+            {%if messages%}
+            {%for msg in messages%}
+            <p>
+            <h2>{{msg}}</h2>
+            </p>
+            {%endfor%}
+            {%endif%}
+            {%endwith%}
+            <!-- fash messages end -->
     {%endblock%}
 
     {%block nav_bar%} 

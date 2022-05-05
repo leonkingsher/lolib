@@ -1,7 +1,7 @@
 
 from flask import Blueprint, Flask,render_template,redirect,url_for,session,flash,request
 from app import mydatabase
-from datetime import date
+from datetime import date, datetime
 
 display = Blueprint('display',__name__, url_prefix='/display')
 dbms = mydatabase.MyDatabase(mydatabase.SQLITE, dbname='library.sqlite')
@@ -22,11 +22,7 @@ def display_customers():
     if res ==[]:flash('No results')
     return render_template('display_customers.html',res=res)
 
-@display.route('/loans')
-def display_loans():
-    res = dbms.print_all_data(mydatabase.LOANS)
-    if res ==[]:flash('No results')
-    return render_template('display_loans.html',res=res)
+
 
 
 @display.route('/book_by_name', methods=["POST",'GET'])
@@ -41,55 +37,38 @@ def book_by_name():
     return render_template('find_book.html')
 
 
-@display.route('/late_loans')
-def display_late_loans():
-    all_loans = dbms.print_all_data(mydatabase.LOANS)
-
+@display.route('/loans')
+def display_loans():
     type1 = 10
     type2 = 5
     type3 = 2
-    
-    try:
-        # booktype
-        loaned_book_type = dbms.print_all_data( query='select "book_type" from Books inner join loans on books.bookID = loans.bookID and loans.returndate ="Not Yet"')
-        for book in loaned_book_type:
-            book_type  = str(book).strip('(').strip(')').strip(',')
-
-        # loan_days
-        loan_date = dbms.print_all_data( query='select "loandate" from loans  inner join Books on books.bookID = loans.bookID and loans.returndate ="Not Yet"')
-        for dat in loan_date:
-            date_str  = str(dat).strip('(').strip(')').strip(',').strip("'")
-            splited_date = date_str.split('-')
-            y = int(splited_date[0])
-            m = int(splited_date[1])
-            d = int(splited_date[2])
-            loan_date_fin = date(y,m,d)
-            today_date = date.today()
-            loan_days = (today_date-loan_date_fin).days
-            
+    loan_date_lst = []
+    all_loans = dbms.print_all_data( query='select name,book_type,loans.* from Books inner join loans on books.bookID = loans.bookID and loans.returndate ="Not Yet"')
+    for loan in all_loans:
+        print(loan)
+        splited_date = loan[-2].split('-')
+        y = int(splited_date[0])
+        m = int(splited_date[1])
+        d = int(splited_date[2])
+        loan_date_fin = date(y,m,d)
+        today_date = date.today()
+        loan_days = (today_date-loan_date_fin).days
+        book_type = loan[1]
 
 
-        if int(book_type) == 1:
-            if type1 < loan_days:
-                print(f'book_type1 = {book_type}')
-                context = {"all_loans":all_loans, "late":f'{type1 - loan_days} days late'  }
-                return render_template("late_loans.html",context= context)
 
-        if int(book_type) == 2:
-            if type2 < loan_days:
-                context = {"all_loans":all_loans, "late":f'{type2 - loan_days} days late'  }
+        if int(book_type) == 1 and type1 < loan_days:
+                loan_date_lst.append(f'{type1 - loan_days} days late')
+                fraze = f'{type1 - loan_days} days late'
+        elif int(book_type) == 2 and type2 < loan_days:
+                loan_date_lst.append(f'{type2 - loan_days} days late')
                 
-                return render_template("late_loans.html",context = context)       
-        if int(book_type) == 3:
-            if type3 < loan_days:
-                context = {"all_loans":all_loans, "late":f'{type3 - loan_days} days late'  }
-                return render_template("late_loans.html",context= context)
-        else:
-            flash('No results')
-            context = {"all_loans":all_loans, "late":'None'  }
-            return render_template("late_loans.html",context= context)
-
-    except Exception as e:
-        print(e)
-        flash('No results')
-        return render_template("late_loans.html",context= {"all_loans":all_loans, "late":'None'  })     
+        elif int(book_type) == 3 and type3 < loan_days:
+                loan_date_lst.append(f'{type3 - loan_days} days late')
+            #     
+        else: loan_date_lst.append('Enjoy your book, You have few days left')
+        
+        
+    return render_template('display_loans.html',context={'loans':all_loans,'iflate':loan_date_lst})
+            
+            

@@ -18,16 +18,16 @@ ________________________________________________________________________________
 
 database/madatabase.py  module >> 'MyDatabase' class > uses 'sqlalchemy' pack to establish the connection, create the DB tables and hold all the DB modification functions;
 
-    def create_db_tables(self):
-    def execute_query(self, query=''):
-    def print_all_data(self, table='', query=''):
-    def delete_by_(self, table, id):
-    def insert_new_customer(self, name, email, password, city, age):
-    def insert_new_book(self, name, author, year_published, book_type):
-    def loan(self, custID, bookID, loandate, returndate):
-    def check_log(self,email,password):
-    def get_by_somthing(self,wht,tab,frm,lke):
-    def get_by_int(self,wht,tab,frm,lke):
+    def create_db_tables(self)
+    def execute_query(self, query='')
+    def print_all_data(self, table='', query='')
+    def delete_by_(self, table, id)
+    def insert_new_customer(self, name, email, password, city, age)
+    def insert_new_book(self, name, author, year_published, book_type)
+    def loan(self, custID, bookID, loandate, returndate)
+    def check_log(self,email,password)
+    def get_by_somthing(self,wht,tab,frm,lke)
+    def get_by_int(self,wht,tab,frm,lke)
     def update(self,tbl,set,eq0,where,eq1)
 
 
@@ -50,11 +50,10 @@ display.py (blueprint) >> display_books() func > route('/books') > rendering 'di
 
 display.py (blueprint) >> display_customers() func > route('/customers') > rendering 'display_customers.html' > uses 'print_all_data' method from 'mydatabase.py'(DAL) - display all the customers 
 
-display.py (blueprint) >> display_loans() func > route('/loans') > rendering 'display_loans.html' > uses 'print_all_data' method from 'mydatabase.py'(DAL) - display all the loans 
+display.py (blueprint) >> display_loans() func > route('/loans') > rendering 'display_loans.html' > uses 'print_all_data' method from 'mydatabase.py'(DAL) - display all active loans & shows if the return date is over 
 
 display.py (blueprint) >> book_by_name() func > route('/book_by_name') > rendering 'find_book.html' > uses 'get_by_somthing' method from 'mydatabase.py'(DAL) - display searched book 
 
-display.py (blueprint) >> display_late_loans() func > route('/late_loans') > rendering 'late_loans.html' > uses 'print_all_data' method 2 times with a spesific  query from 'mydatabase.py'(DAL) - display late loans 
 
 __________________________________________________________________________________ 
 

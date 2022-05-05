@@ -1,5 +1,5 @@
 from flask import Blueprint, Flask,render_template,redirect,url_for,session,flash,request
-
+from datetime import date
 from app import mydatabase
 
 customers = Blueprint('customers',__name__, url_prefix='/customers')
@@ -33,17 +33,18 @@ def login():
     if request.method == "POST":
         email = request.form['email']
         password = request.form['password']
-        check = dbms.check_log(email,password)
+        check = dbms.check_log(email,password)  #checks if the email and the pass match
 
         print(f'the result is {check}')
         if check != [] :
             session['email'] = email
             session['password'] = password
             print(session)
+            t=date.today()
+            dbms.update(mydatabase.CUSTOMERS,'last_log',t,'email',email)
             name = dbms.get_by_somthing('name',mydatabase.CUSTOMERS,'email',email)
             for nam in name:
                 na = str(nam).strip('(').strip(')').strip("'").strip(',').strip("'")
-            # flash(f'Hello, {na} Logged in successfully!','info')
             session['name'] = na
             return redirect(url_for('home'))
 

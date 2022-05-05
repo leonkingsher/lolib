@@ -17,41 +17,48 @@
 
     {%for i in res%}
     {%if i[1] !="admin@lolib.com" %}
-    <div class="container h-100">
-        <div class="col-9 mx-auto">
-            <div class="card h-100 border-primary justify-content-center">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
+    <div class="container">
+        <div class="col mb-3">
+            <div class="card" style="width: 22rem;">
+                <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
+                <div class="card-body">
                     <h5 class="card-title">{{i[3]}}</h5>
                     <p class="card-text">ID: {{i[0]}}</p>
                     <p class="card-text">Email: {{i[1]}}</p>
                     <p class="card-text">password: {{i[2]}}</p>
                     <p class="card-text">City: {{i[4]}}</p>
                     <p class="card-text">age: {{i[5]}}</p>
+                    {%if session['email'] == 'admin@lolib.com' %}
                     <a href="/helper/delcustomer/{{i[0]}}" button type="button"
                         class="btn btn-warning">DELETE</button></a>
+                    {%else%}
+                    <a button type="button" class="btn btn-warning" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                        title="login as admin to use this function">DELETE</button></a>
+                    {%endif%}
+                    <p>
+                    <div class="card-footer text-muted">
+                        Last log was at {{i[-1]}}
+                    </div>
                     </p>
                 </div>
             </div>
         </div>
     </div>
-        <br>
-        <br>
-        {%endif%}
-        <br>
-        {%endfor%}
-        <!-- flash messages -->
-        {%with messages = get_flashed_messages()%}
-        {%if messages%}
-        {%for msg in messages%}
-        <p>
-        <h2>{{msg}}</h2>
-        </p>
-        {%endfor%}
-        {%endif%}
-        {%endwith%}
-        <!-- fash messages end -->
-        {%endblock%}
+    {%endif%}
+    <br>
+    {%endfor%}
+    <!-- flash messages -->
+    {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%for msg in messages%}
+    <p>
+    <h2>{{msg}}</h2>
+    </p>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+    <!-- fash messages end -->
+    {%endblock%}
 </body>
 
 </html>

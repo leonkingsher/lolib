@@ -15,29 +15,29 @@
 
 <body>
     {%block content%}
-    {%for i in res%}
-    {%if i[3] =='Not Yet'%}
-    <div class="container h-100">
-        <div class="col-9 mx-auto">
-            <div class="card h-100 border-primary justify-content-center">
-                <div class="card" style="width: 18rem;">
-                    <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">customer ID {{i[0]}}</h5>
-                        <p class="card-text">Book ID: {{i[1]}}</p>
-                        <p class="card-text">Loan Date: {{i[2]}}</p>
-                        <p class="card-text">Return Date: {{i[3]}}</p>
-                        <a href="/books/return/{{i[1]}}" button type="button"
-                            class="btn btn-warning">RETURN</button></a>
-                        >
+    {%for i in context.loans%}
+    <div class="container">
+        <div class="col mb-3">
+            <div class="card" style="width: 22rem;">
+            <img src="https://picsum.photos/200/30{{loop.index-1}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                        <h5 class="card-title">customer ID {{i[3]}}</h5>
+                        <p class="card-text">Book name: {{i[0]}}</p>
+                        <p class="card-text">Loan Date: {{i[5]}}</p>
+                        <p class="card-text">Return Date: {{i[6]}}</p>
+                        <p></p> <a href="/books/return/{{i[2]}}" button type="button"
+                            class="btn btn-warning">RETURN</button></a></p>
+                            <div class="card-footer text-muted">
+                                {{context.iflate[ loop.index -1]}}
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    
         <br>
         <br>
-        {%endif%}
+        
         {%endfor%}
         <!-- flash messages -->
         {%with messages = get_flashed_messages()%}

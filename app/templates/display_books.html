@@ -27,43 +27,47 @@
     {%block content%}
     {%for i in res%}
 
-    <div class="container h-100">
-            <div class="col-9 mx-auto">
-                <div class="card h-100 border-primary justify-content-center">
-                    <div class="card" style="width: 18rem;">
-                        <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">{{i[1]}}</h5>
-                            <p class="card-text">Autor: {{i[2]}}</p>
-                            <p class="card-text">Year Published: {{i[3]}}</p>
-                            <p class="card-text">Type: {{i[4]}}</p>
-                            <p> <a href="/books/loans/{{i[0]}}" button type="button"
-                                    class="btn btn-info">LOAN</button></a>
-                                <a href="/helper/delbook/{{i[0]}}" button type="button"
-                                    class="btn btn-warning">DELETE</button></a>
-                            </p>
+    <div class="container">
+        <div class="col mb-3">
+            <div class="card" style="width: 22rem;">
+            <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                        <h5 class="card-title">{{i[1]}}</h5>
+                        <p class="card-text">Autor: {{i[2]}}</p>
+                        <p class="card-text">Year Published: {{i[3]}}</p>
+                        <p class="card-text">Type: {{i[4]}}</p>
+                        <p> <a href="/books/loans/{{i[0]}}" button type="button" class="btn btn-info">LOAN</button></a>
+                            {%if session['email'] == 'admin@lolib.com' %}
+                            <a href="/helper/delbook/{{i[0]}}" button type="button"
+                                class="btn btn-warning">DELETE</button></a>
+                            {%else%}
+                            <a button type="button" class="btn btn-warning" data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                title="login as admin to use this function">DELETE</button></a>
+                            {%endif%}
 
-                        </div>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <br>
-        <br>
+    </div>
+    <br>
+    <br>
 
-        {%endfor%}
-        <!-- flash messages -->
-        {%with messages = get_flashed_messages()%}
-        {%if messages%}
-        {%for msg in messages%}
-        <p>
-        <h2>{{msg}}</h2>
-        </p>
-        {%endfor%}
-        {%endif%}
-        {%endwith%}
-        <!-- fash messages end -->
-        {%endblock%}
+    {%endfor%}
+    <!-- flash messages -->
+    {%with messages = get_flashed_messages()%}
+    {%if messages%}
+    {%for msg in messages%}
+    <p>
+    <h2>{{msg}}</h2>
+    </p>
+    {%endfor%}
+    {%endif%}
+    {%endwith%}
+    <!-- fash messages end -->
+    {%endblock%}
 </body>
 
 </html>

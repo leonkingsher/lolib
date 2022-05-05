@@ -52,9 +52,12 @@ class MyDatabase:
                          Column('password', String),
                          Column('name', String),
                          Column('city', String),
-                         Column('age', Integer)
+                         Column('age', Integer),
+                         Column('last_log', String)
+
                          )
         loans = Table(LOANS, metadata,
+                      Column('loanID', Integer, primary_key=True),
                       Column('custID', Integer),
                       Column('bookID', Integer),
                       Column('loandate', String),
@@ -114,7 +117,7 @@ class MyDatabase:
         query = f"INSERT INTO {BOOKS}( name, author,year_published,book_type) VALUES('{name}','{author}','{year_published}',{book_type});"
         self.execute_query(query)
 
-    def loan(self, custID, bookID, loandate, returndate):
+    def loan(self,custID, bookID, loandate, returndate):
         query = f"INSERT INTO {LOANS}(custID ,bookID,loandate,returndate) VALUES({custID},{bookID},'{loandate}','{returndate}')"
         self.execute_query(query)
     

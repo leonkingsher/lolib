@@ -16,7 +16,7 @@ dbms = mydatabase.MyDatabase(mydatabase.SQLITE, dbname='library.sqlite')
 app = Flask(__name__)
 app.secret_key = "111"
 
-# dbms.create_db_tables()
+dbms.create_db_tables()
 
 app.register_blueprint(customers)
 app.register_blueprint(display)

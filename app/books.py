@@ -27,6 +27,7 @@ def add_new_book():
 @books.route('/loans/<i>')
 def loan(i):
     try:
+        
         bid=dbms.get_by_somthing('custID',mydatabase.CUSTOMERS,'email',session['email'])
         for e in bid:
             b = str(e).strip('(').strip(')').strip(',')
@@ -34,9 +35,11 @@ def loan(i):
         bookID = str(i).strip("'")
         loandate = date.today()
         returndate ='Not Yet'
-        dbms.loan(custID,bookID,loandate,returndate)
-        flash('success')
-        return render_template('display_books.html')
+        check_if_taken= dbms.get_by_somthing('bookID',mydatabase.LOANS,'bookID',bookID)
+        if check_if_taken ==[]:
+            dbms.loan(custID,bookID,loandate,returndate)
+            print('loan seccess')
+        return redirect(url_for('display.display_books',))
     except Exception as e:
         print(e)    
 
@@ -48,4 +51,7 @@ def return_a_book(i):
     today_date = date.today()
     dbms.update(mydatabase.LOANS,'returndate',today_date,"bookID",i )
     flash('success')
-    return render_template('display_books.html')
+    return redirect('/')
+
+
+# /books/return/{{i[2]}}    

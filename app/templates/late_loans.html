@@ -14,26 +14,26 @@
 
 <body>
     {%block content%}
-
+    
     {%for i in context.all_loans%}
-    {%if i[3] =='Not Yet'%}
+    {%if i[4] =='Not Yet'%}
     {%if context.late != 'None'%}
     {{context.late}}
     <div class=" row-cols-1 row-cols-md-3 g-4"></div>
     <div class="col">
         <div class="card" style="width: 18rem;">
-            <img src="https://picsum.photos/200/30{{i[1]}}" class="card-img-top" alt="...">
+            <img src="https://picsum.photos/200/30{{i[0]}}" class="card-img-top" alt="...">
             <div class="card-body">
-                <h5 class="card-title">customer ID {{i[0]}}</h5>
-                <p class="card-text">Book ID {{i[1]}}</p>
-                <p class="card-text">{{i[2]}}</p>
+                <h5 class="card-title">customer ID {{i[1]}}</h5>
+                <p class="card-text">Book ID {{i[2]}}</p>
                 <p class="card-text">{{i[3]}}</p>
+                <p class="card-text">{{i[4]}}</p>
                 <p class="card-text">{{context.late}}</p>
 
 
             </div>
         </div>
-
+        
         {%endif%}
         {%endif%}
         {%endfor%}
